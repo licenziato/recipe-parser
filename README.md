@@ -4,7 +4,7 @@ Natural language parser for recipes and lists of ingredients. Can parse a string
 
 ## About
 
-This project was built on top of code written by [nsafai](https://github.com/nsafai/recipe-parser).
+This project was built on top of code written by [suprmat95](https://github.com/suprmat95/recipe-parser).
 
 What's different from the original?
 
