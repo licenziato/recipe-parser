@@ -57,7 +57,7 @@ export function parseList(recipeString: string[], language: string, toCombine = 
 }
 
 export function parse(recipeString: string, language: string): Ingredient {
-  const ingredientLine = recipeString.trim(); // removes leading and trailing whitespace
+  const ingredientLine = convert.removeAccentuation(recipeString.trim()); // removes leading and trailing whitespace
 
   /* restOfIngredient represents rest of ingredient line.
   For example: "1 pinch salt" --> quantity: 1, restOfIngredient: pinch salt */

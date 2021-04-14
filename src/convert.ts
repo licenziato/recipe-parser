@@ -21,6 +21,10 @@ export function getFirstMatch(line: string, regex: RegExp) {
   return (match && match[0]) || '';
 }
 
+export function removeAccentuation(input: string) {
+  return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 const unicodeObj: { [key: string]: string } = {
   '½': '1/2',
   '⅓': '1/3',
@@ -43,7 +47,7 @@ const unicodeObj: { [key: string]: string } = {
 };
 
 export function text2num(s: string, language: string) {
-  const toTaste = toTasteMap[language]
+  const toTaste = toTasteMap.get(language);
   const firstLetter = toTaste.match(/\b(\w)/g);
   const a = s.toString().split(/[\s-]+/);
   let values: number[]=[0,0];
@@ -98,7 +102,8 @@ export function findQuantityAndConvertIfUnicode(ingredientLine: string, language
   const unicodeFractionRegex = /\d*[^\u0000-\u007F]+/g;
   const onlyUnicodeFraction = /[^\u0000-\u007F]+/g;
   const wordUntilSpace = /[^\s]+/g;
-  const wordToTaste = toTasteMap[language]
+  const wordToTaste = toTasteMap.get(language)
+  
   const regexToTaste= new RegExp(wordToTaste,'gi')
 
   // found a unicode quantity inside our regex, for ex: '⅝'
