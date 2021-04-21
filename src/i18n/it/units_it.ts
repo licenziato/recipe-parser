@@ -19,7 +19,7 @@ export const itUnits = {
   piece: ['pcs', 'pcs.', 'pezzo'],
   sheet: ['foglio'],
   clove: ['spicchio'],
-  bag: ['bustine'],
+  bag: ['bustina'],
   can: ['lattina'],
   panetto: ['panetto'],
   foglia: ['foglia'],
