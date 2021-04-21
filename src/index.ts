@@ -32,7 +32,7 @@ function getUnit(input: string, language: string) {
     }
   }
   for (const pluralUnit of Object.keys(pluralUnits)) {
-    if (input === pluralUnits[pluralUnit]) {
+    if (input.toLowerCase() === pluralUnits[pluralUnit]) {
       return [pluralUnit, input];
     }
   }

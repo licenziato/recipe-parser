@@ -5,7 +5,7 @@ import { parseList, LANG } from './src/index';
 //console.log(units);
 
 const test_ita = [
-    '1 cucchiaio basilico',
+    '1 Cucchiai basilico',
     '300 g di farina',
     '5-6 uova (~300 g)',
     '100 g burro',
@@ -25,7 +25,7 @@ const test_en = [
     '1/2 g salt',
     '20 g salt',
     'ten gr yeast',
-    '100 ml di café'
+    '100 ml of café'
 ]
 
 const res_it = parseList(test_ita, LANG.ITALIAN, false);
