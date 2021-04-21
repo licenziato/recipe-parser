@@ -11,6 +11,7 @@ const test_ita = [
     '100 g burro',
     '15 g di zucchero',
     '5 g sale',
+    '1 Kg. di farina',
     '20 g sale',
     'dieci g lievito madre o birra',
     '100 ml di caffé'
@@ -18,7 +19,7 @@ const test_ita = [
 
 const test_en = [
     '1 Tablespoon of basil',
-    '300 oz of flour',
+    '300 OZ of flour',
     '5-6 eggs (~300 g)',
     '100 gr butter',
     '15 g of sugar',
