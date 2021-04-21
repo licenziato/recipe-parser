@@ -1,9 +1,12 @@
 import * as convert from './convert';
 import { unitsMap} from './units';
 import { repeatingFractions } from './repeatingFractions';
+import { langs as LANGUAGES } from './i18n/lang';
 //import * as Natural from 'natural';
 
 //const nounInflector = new Natural.NounInflector();
+
+export const LANG = LANGUAGES;
 
 export interface Ingredient {
   ingredient: string;

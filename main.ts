@@ -1,5 +1,4 @@
-import { langs } from './src/i18n/lang';
-import { parseList } from './src/index';
+import { parseList, LANG } from './src/index';
 //import { units } from "./units";
 
 
@@ -29,8 +28,8 @@ const test_en = [
     '100 ml di café'
 ]
 
-const res_it = parseList(test_ita, langs.ITALIAN, false);
-const res_en = parseList(test_en, langs.ENGLISH, false);
+const res_it = parseList(test_ita, LANG.ITALIAN, false);
+const res_en = parseList(test_en, LANG.ENGLISH, false);
 
 console.log(res_it);
 console.log(res_en);
