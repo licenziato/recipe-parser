@@ -34,7 +34,10 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@types/node": "^10.5.1"
+    "@types/node": "^10.5.1",
+    "compromise": "^13.11.1",
+    "compromise-sentences": "^0.3.0",
+    "compromise-syllables": "0.0.6"
   },
   "keywords": [
     "recipe",
