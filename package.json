@@ -37,6 +37,7 @@
   "dependencies": {
     "@types/node": "^10.5.1",
     "compromise": "^13.11.1",
+    "compromise-paragraphs": "0.0.5",
     "compromise-sentences": "^0.3.0",
     "compromise-syllables": "0.0.6"
   },
