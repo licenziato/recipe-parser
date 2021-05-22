@@ -1,6 +1,8 @@
 import nlp from 'compromise'
 import pluginParagraphs from 'compromise-paragraphs';
 
+import { parseIngredients, parseDirections, LANG } from './src/index';
+
 const nplExtend = nlp.extend(pluginParagraphs)
 
 const recipe_1 = `
@@ -11,7 +13,7 @@ In un pentolino porti a bollore acqua, burro e sale. Spegni e getti tutta la far
 Poi fai raffreddare e, quando è completamente freddo, aggiungi un uovo alla volta mescolando fino al completo assorbimento.
 Con il sac-à-poche formi delle ciambelline sulla leccarda ricoperta di carta forno e inforni in forno ventilato preriscaldato a 200°. Dopo 20 minuti abbassi a 160°per altri 10 minuti
 
-Per la crema:
+Crema:
 Iniziamo versando il latte in una pentola, aggiungiamo la scorza di limone e lasciamolo riscaldare bene sul fuoco
 Prendiamo un'altra pentola abbastanza capiente e iniziamo a rompere le uova e uniamo lo zucchero e la farina.
 Con l'aiuto di una frusta, mescoliamo bene tutti gli ingredienti fino a ottenere un composto liscio e senza grumi.
@@ -21,6 +23,11 @@ Quando il composto è ben amalgamato portiamo la pentola sul fuoco e sempre mesc
 recipe_1.length
 
 const recipe_2 = `
+1 Cucchiai basilico
+300 g di farina
+5-6 uova (~300 g)
+100 g burro
+
 Preparazione
 
 Impasto:
@@ -28,8 +35,7 @@ Miscelare farina con lievito e zucchero, aggiungere le uova fredde di frigo uno 
 Lasciare lievitare fino al raddoppio (circa 3 ore)
 Sgonfiare l’impasto, impastarlo velocemente  e inserirlo nello stampo ben imburrato.
 Lasciare crescere nuovamente fino al raggiungimento del bordo dello stampo.
-Cuocere in forno caldo a 180° per 15-20 minuti circa, attenzione a non bruciarlo sopra.
-Lasciare raffreddare.
+Cuocere in forno caldo a 180° per 15-20 minuti circa, attenzione a non bruciarlo sopra e lasciare raffreddare.
 
 Bagna:
 Riscaldare l’acqua fino allo scioglimento dello zucchero. Lasciare intiepidire fino a circa 50 gradi, quando il baba’ sara’ freddo bagnarlo.
@@ -40,50 +46,17 @@ Miscelare 100 ml della rimanente bagna con il rum sul fuoco e aggiungerlo dirett
 recipe_2.length
 
 
-let sectionTextOpts = {
-    trim: true,          // remove leading/trailing whitespace
-    whitespace: true,    // tabs, double-spaces
-    unicode: true,       // ü → u
-    lowercase: false,     // co-erce everything to lowercase
-    titlecase: true,     // titlecase proper-nouns, acronyms, sentence-starts
-    punctuation: true,   // '?!' → ?
-    acronyms: false,      // F.B.I. → FBI
-    abbreviations: false, // Mrs. → Mrs
-    implicit: false,      // didn't → 'did not'
-  }
-
+const recipe = recipe_2;
 let words = ['preparazione', 'procedura', 'directions']
-var doc = nplExtend(recipe_2)
+var doc = nplExtend(recipe);
 
-// Search ingredient section
-const ingredientSection = doc.splitBefore(doc.lookup(words).text());
-
-const ingredientsToParse = ingredientSection.out('array');
-console.log('Ingredient found: ', ingredientsToParse.length);
+const lookupSectionSeparator = doc.lookup(words).text();
+var sections = recipe.split(lookupSectionSeparator);
 
 
-// Search directions section
-const directionsSection = doc.splitAfter(doc.lookup(words).text());
+const out = parseIngredients(sections[0], LANG.ITALIAN);
+console.log(out);
 
-// Split directions in subsections
-const subSection = directionsSection.paragraphs()
-subSection.forEach((p: { text: () => any; sentences: () => any[]; }) => {
-  if(p.text() === subSection.eq(0).text()){
-    return;
-  }
-  console.log('++++++++++ Sub Section ++++++++++++');
-  console.log(p.text());
 
-  p.sentences().forEach(s => {
-    if (s.wordCount() > 4) {
-      console.log('+++++++++ Single Direction +++++++++++++');
-      console.log(s.wordCount())
-      console.log(s.text())
-    } else {
-      console.log('+++++++++ Title Section +++++++++++++');
-      console.log(s.wordCount())
-      console.log(s.text(sectionTextOpts))
-    }
-  });
-  console.log('\n\n');
-});
+const outD = parseDirections(sections[1]);
+console.log(outD);
