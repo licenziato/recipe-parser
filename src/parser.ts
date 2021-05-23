@@ -38,9 +38,9 @@ export function splitDirections(directionsText: string): string[] {
   subSection.forEach((p: { text: () => any; sentences: () => any[] }) => {
     p.sentences().forEach((s) => {
       if (s.wordCount() > 4) {
-        directions.push(s.text());
+        directions.push(s.text().trim());
       } else {
-        directions.push("(+)" + s.text());
+        directions.push("(+)" + s.text(sectionTextOpts).trim());
       }
     });
   });
