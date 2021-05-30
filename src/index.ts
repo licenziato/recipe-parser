@@ -73,6 +73,7 @@ export function parse(recipeString: string, language: string): Ingredient {
     ingredientLine,
     language
   ) as string[];
+
   quantity = convert.convertFromFraction(quantity);
 
   /* extraInfo will be any info in parantheses. We'll place it at the end of the ingredient.
@@ -84,10 +85,16 @@ export function parse(recipeString: string, language: string): Ingredient {
   }
 
   // grab unit and turn it into non-plural version, for ex: "Tablespoons" OR "Tsbp." --> "tablespoon"
-  const [unit, originalUnit] = getUnit(
-    restOfIngredient.split(" ")[0],
-    language
-  ) as string[];
+  let unit: string = '', originalUnit: string = '';
+
+  for (let i = 0; i < restOfIngredient.split(" ").length; i++) {
+    [unit, originalUnit] = getUnit(
+      restOfIngredient.split(" ")[i],
+      language
+    ) as string[];
+    if (!!unit) break;
+  };
+
   // remove unit from the ingredient if one was found and trim leading and trailing whitespace
   let ingredient = !!originalUnit
     ? restOfIngredient.replace(originalUnit, "").trim()

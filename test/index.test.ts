@@ -1156,6 +1156,54 @@ describe('combine ingredients', () => {
     ]);
   });
 });
+
+describe('inverse order: ingredient quantity [unit]', () => {
+  it('"Farina 00 100 g', () => {
+    expect(parse('Farina 00 100 g', LANG.ITALIAN)).to.deep.equal({
+      quantity: '100',
+      unit: 'gram',
+      ingredient: 'Farina 00',
+      minQty: '100',
+      maxQty: '100',
+      extraInfo: null,
+    });
+  });
+
+  it('"Uova 10', () => {
+    expect(parse('Uova 10', LANG.ITALIAN)).to.deep.equal({
+      quantity: '10',
+      unit: null,
+      ingredient: 'Uova',
+      minQty: '10',
+      maxQty: '10',
+      extraInfo: null,
+    });
+  })
+
+  it('"Flour 00 1 cup', () => {
+    expect(parse('Flour 00 100 cup', LANG.ENGLISH)).to.deep.equal({
+      quantity: '100',
+      unit: 'cup',
+      ingredient: 'Flour 00',
+      minQty: '100',
+      maxQty: '100',
+      extraInfo: null,
+    });
+  });
+
+  it('"Eggs 10', () => {
+    expect(parse('Eggs 10', LANG.ENGLISH)).to.deep.equal({
+      quantity: '10',
+      unit: null,
+      ingredient: 'Eggs',
+      minQty: '10',
+      maxQty: '10',
+      extraInfo: null,
+    });
+  })
+
+});
+
 /*
 describe('pretty printing press', () => {
   const ingredients = [{

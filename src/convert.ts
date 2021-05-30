@@ -56,7 +56,6 @@ export function text2num(s: string, language: string) {
     const regExString = firstLetter.join('[.]?') +'[.]?'
     const regEx = new RegExp(regExString, 'gi')
     if(a[0].match(regEx)){
-      console.log((firstLetter.join('.') +'.').toLowerCase())
       return (firstLetter.join('.') +'.').toLocaleLowerCase()
     }
   }
@@ -65,7 +64,7 @@ export function text2num(s: string, language: string) {
   });
   if(values[0] + values[1]<0)
     return null
-  else 
+  else
     return values[0] + values[1];
 }
 
@@ -89,21 +88,21 @@ export function feach(w: string, g: number, n: number, language: string) {
           n = n + g * x
           g = 0;
       }
-      else 
+      else
           return [-1, -1]
-      
+
   }
   return [g,n]
 }
 
 export function findQuantityAndConvertIfUnicode(ingredientLine: string, language: string) {
-  const numericAndFractionRegex = /^(\d+\/\d+)|(\d+\s\d+\/\d+)|(\d+.\d+)|\d+/g;
+  const numericAndFractionRegex = /^(\d+\/\d+)|(\d+\s\d+\/\d+)|((?!0+)\d+.\d+)|(?!0+)\d+/g;
   const numericRangeWithSpaceRegex = /^(\d+\-\d+)|^(\d+\s\-\s\d+)|^(\d+\sto\s\d+)/g; // for ex: "1 to 2" or "1 - 2"
   const unicodeFractionRegex = /\d*[^\u0000-\u007F]+/g;
   const onlyUnicodeFraction = /[^\u0000-\u007F]+/g;
   const wordUntilSpace = /[^\s]+/g;
   const wordToTaste = toTasteMap.get(language)
-  
+
   const regexToTaste= new RegExp(wordToTaste,'gi')
 
   // found a unicode quantity inside our regex, for ex: '⅝'
@@ -141,14 +140,15 @@ export function findQuantityAndConvertIfUnicode(ingredientLine: string, language
   }
   else if(ingredientLine.match(wordUntilSpace)) {
     const quantity = getFirstMatch(ingredientLine, wordUntilSpace);
-    const quantityNumber = text2num(quantity.toLowerCase(), language)
-    if(quantityNumber){
+    const quantityNumber = text2num(quantity.toLowerCase(), language);
+
+    if (quantityNumber) {
       const restOfIngredient = ingredientLine.replace(getFirstMatch(ingredientLine, wordUntilSpace), '').trim()
       return [ingredientLine.match(wordUntilSpace) && quantityNumber + '', restOfIngredient];
     }
     else
       return [null, ingredientLine];
-    
+
   }
 
   // no parse-able quantity found
